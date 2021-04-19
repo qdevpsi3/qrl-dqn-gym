@@ -116,3 +116,4 @@ dmypy.json
 # additional
 .DS_Store
 .vscode/
+tmp/

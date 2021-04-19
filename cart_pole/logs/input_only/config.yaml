@@ -1,0 +1,24 @@
+batch_size: 16
+data_reupload: true
+device: auto
+eps_decay: 0.99
+eps_init: 1.0
+eps_min: 0.01
+gamma: 0.99
+log_ckp_freq: 50
+log_eval_freq: 20
+log_train_freq: 1
+logging: true
+loss: SmoothL1
+lr: 0.001
+lr_input: 0.01
+lr_output:
+memory: 10000
+n_eval_episodes: 5
+n_layers: 5
+optimizer: RMSprop
+target_freq: 30
+total_episodes: 10
+train_freq: 10
+w_input: true
+w_output: false

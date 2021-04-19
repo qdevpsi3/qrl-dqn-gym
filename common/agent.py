@@ -31,7 +31,7 @@ class Agent:
         action = self.action_space.sample()
         return action
 
-    def get_action(self, state, device):
+    def get_action(self, state, device=torch.device('cpu')):
         if not isinstance(state, torch.Tensor):
             state = torch.tensor([state])
 
