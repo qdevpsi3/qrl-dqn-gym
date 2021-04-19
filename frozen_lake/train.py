@@ -1,14 +1,18 @@
 import argparse
+import sys
+
+# add common dqn utils
+sys.path.append('..')
 
 import gym
 import numpy as np
 import pennylane as qml
 import torch
 import torch.nn as nn
+import yaml
 from common.trainer import Trainer
 from common.wrappers import BinaryWrapper
 from torch.nn.parameter import Parameter
-from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 
@@ -22,14 +26,14 @@ parser.add_argument("--eps_min", default=0.01, type=float)
 parser.add_argument("--train_freq", default=5, type=int)
 parser.add_argument("--target_freq", default=10, type=int)
 parser.add_argument("--memory", default=10000, type=int)
-parser.add_argument("--loss", default='SmoothL1Loss', type=str)
+parser.add_argument("--loss", default='SmoothL1', type=str)
 parser.add_argument("--optimizer", default='RMSprop', type=str)
-parser.add_argument("--total_episodes", default=3500, type=int)
+parser.add_argument("--total_episodes", default=2500, type=int)
 parser.add_argument("--n_eval_episodes", default=5, type=int)
-parser.add_argument("--log_dir", default='./logs/frozen_lake/', type=str)
+parser.add_argument("--logging", default=True, type=bool)
 parser.add_argument("--log_train_freq", default=1, type=int)
-parser.add_argument("--log_eval_freq", default=10, type=int)
-parser.add_argument("--log_ckp_freq", default=100, type=int)
+parser.add_argument("--log_eval_freq", default=20, type=int)
+parser.add_argument("--log_ckp_freq", default=50, type=int)
 parser.add_argument("--device", default='auto', type=str)
 args = parser.parse_args()
 
@@ -75,18 +79,21 @@ def get_model(n_qubits, n_layers, data_reupload):
 class QuantumNet(nn.Module):
     def __init__(self, n_layers):
         super(QuantumNet, self).__init__()
-        self.q_layers = get_model(n_qubits=4,
+        self.n_qubits = 4
+        self.n_actions = 4
+        self.q_layers = get_model(n_qubits=self.n_qubits,
                                   n_layers=n_layers,
                                   data_reupload=False)
 
     def forward(self, inputs):
-        inputs = np.pi * inputs
+        inputs = inputs * np.pi
         outputs = self.q_layers(inputs)
         outputs = (1 + outputs) / 2
         return outputs
 
 
 def main():
+
     # Environment
     env_name = 'FrozenLake-v0'
     env = gym.make(env_name)
@@ -112,7 +119,11 @@ def main():
                       loss_func=args.loss,
                       optim_class=args.optimizer,
                       device=args.device,
-                      tensorboard_log=args.log_dir)
+                      logging=args.logging)
+
+    if args.logging:
+        with open(trainer.log_dir + 'config.yaml', 'w') as f:
+            yaml.safe_dump(args.__dict__, f, indent=2)
 
     trainer.learn(args.total_episodes,
                   n_eval_episodes=args.n_eval_episodes,
