@@ -18,7 +18,7 @@ This repository contains an implementation of the <ins>Quantum Deep Q-learning a
 ## **Hyperparameters**
 | Hyperparameters | Frozen-Lake | Cart-Pole | Explanation |
 |:-:|:-:|:-:|-|
-| n_layers | 4 | 4 | number of layers |
+| n_layers | 5,10,15 | 5 | number of layers |
 | gamma | 0.8 | 0.99 | discount factor for Q-learning |
 | w_input |  | True, False | train weights on the model input |
 | w_output |  | True, False | train weights on the model output |
