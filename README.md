@@ -78,7 +78,7 @@ $ python test.py --path=logs/exp_name/ --n_eval_episodes=10
 <ins>Trained agents</ins> are also provided in the logs folder. 
 ```
 $ cd cart_pole/
-$ python test.py --path=logs/input_weights_only/ --n_eval_episodes=10
+$ python test.py --path=logs/input_only/ --n_eval_episodes=10
 ```
 ## **Results**
 ### ***Cart-Pole*** 
