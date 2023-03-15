@@ -1,7 +1,7 @@
 <h1 align="center" style="margin-top: 0px;"> <b>Quantum agents in the Gym: a variational quantum algorithm for deep Q-learning</b></h1>
 <div align="center" >
 
-[![paper](https://img.shields.io/static/v1.svg?label=Paper&message=arXiv:2103.15084&color=b31b1b)](https://arxiv.org/abs/2103.15084)
+[![paper](https://img.shields.io/static/v1.svg?label=Paper&message=arXiv:2103.15084&color=b31b1b)](https://arxiv.org/abs/2103.15084v3)
 [![framework](https://img.shields.io/static/v1.svg?label=Framework&message=PyTorch&color=ee4c2d)](https://pytorch.org)
 [![packages](https://img.shields.io/static/v1.svg?label=Made%20with&message=PennyLane&color=649ea1)](https://pennylane.ai)
 [![license](https://img.shields.io/static/v1.svg?label=License&message=GPL%20v3.0&color=green)](https://www.gnu.org/licenses/gpl-3.0.html)
